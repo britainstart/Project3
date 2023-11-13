@@ -50,9 +50,11 @@ export class TvApp extends LitElement {
         this.listings.map(
           (item) => html`
             <tv-channel 
+              id="${item.id}"
               title="${item.title}"
               presenter="${item.metadata.author}"
-              description="${item.}
+              description="${item.metadata.author}"
+              video="${item.metadata.source}"
               @click="${this.itemClick}"
             >
             </tv-channel>
@@ -60,16 +62,44 @@ export class TvApp extends LitElement {
         )
       }
       <div>
+        ${this.activeItem.name}
+        ${this.activeItem.description}
         <!-- video -->
+        <iframe
+          width="750"
+          height="400"
+          src="${this.createSource()}"
+          frameborder="0"
+          allowfullscreen
+          ><</iframe>
         <!-- discord / chat - optional -->
       </div>
       <!-- dialog -->
       <sl-dialog label="Dialog" class="dialog">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+      ${this.activeItem.title}
         <sl-button slot="footer" variant="primary" @click="${this.closeDialog}">Close</sl-button>
       </sl-dialog>
     `;
   }
+changeVideo() {
+  // Update the iframe source URL when an item is clicked
+  const iframe = this.shadowRoot.querySelector('iframe');
+  iframe.src = this.createSource();
+}
+
+extractVideoID(link) {
+  try {
+    const url = new URL(link);
+    const searchParams = new URLSearchParams(url.search);
+    return searchParams.get("v");    
+  } catch (error) {
+    console.error("Invalid URL:", link);
+    return null;
+  }
+}
+createSource() {
+  return "https://www.youtube.com/embed/" + this.extractVideoID(this.activeItem.video);
+}
 
   closeDialog(e) {
     const dialog = this.shadowRoot.querySelector('.dialog');
@@ -78,6 +108,13 @@ export class TvApp extends LitElement {
 
   itemClick(e) {
     console.log(e.target);
+    this.activeItem = {
+      title: e.target.title,
+      id: e.target.id,
+      description: e.target.description,
+      video: e.target.video, // Set the source on the active Item
+    };
+    this.changeVideo(); // Call the changeVideo method
     const dialog = this.shadowRoot.querySelector('.dialog');
     dialog.show();
   }
@@ -98,6 +135,7 @@ export class TvApp extends LitElement {
     await fetch(source).then((resp) => resp.ok ? resp.json() : []).then((responseData) => {
       if (responseData.status === 200 && responseData.data.items && responseData.data.items.length > 0) {
         this.listings = [...responseData.data.items];
+        console.log(this.liftings);
       }
     });
   }

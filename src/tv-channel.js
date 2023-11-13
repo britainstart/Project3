@@ -16,7 +16,9 @@ export class TvChannel extends LitElement {
   static get properties() {
     return {
       title: { type: String },
+      description: { type: String},
       presenter: { type: String },
+      video: { type: String },
     };
   }
   // LitElement convention for applying styles JUST to our element
@@ -28,6 +30,9 @@ export class TvChannel extends LitElement {
       .wrapper {
         padding: 16px;
         background-color: #eeeeee;
+        border-radius: 5px;
+        border-color: #1d1c1c;
+        border-width: 3px;
       }
     `;
   }
