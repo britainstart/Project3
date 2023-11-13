@@ -11,6 +11,11 @@ export class TvApp extends LitElement {
     this.name = '';
     this.source = new URL('../assets/channels.json', import.meta.url).href;
     this.listings = [];
+    this.activeItem = {
+      title: null,
+      id: null,
+      description: null,
+    };
   }
   // convention I enjoy using to define the tag's name
   static get tag() {
@@ -22,6 +27,7 @@ export class TvApp extends LitElement {
       name: { type: String },
       source: { type: String },
       listings: { type: Array },
+      activeItem: { type: Object }
     };
   }
   // LitElement convention for applying styles JUST to our element
@@ -46,6 +52,7 @@ export class TvApp extends LitElement {
             <tv-channel 
               title="${item.title}"
               presenter="${item.metadata.author}"
+              description="${item.}
               @click="${this.itemClick}"
             >
             </tv-channel>
