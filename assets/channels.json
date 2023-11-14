@@ -3,7 +3,7 @@
   "data": {
     "id": "123-123-123-123",
     "title": "EdTechJokerTV",
-    "author": "EdTechJoker",
+    "author": "Britain Start",
     "description": "A series of talks to learn about JSON and web standard communications",
     "license": "by-sa",
     "metadata": {},
@@ -15,12 +15,12 @@
         "slug": "hax-wp-killer",
         "order": 0,
         "parent": null,
-        "title": "HAX: Wordpress Killer",
-        "description": "The future we need, not the future we have.",
+        "title": "The Weiner Dog Song",
+        "description": "The song of the century.",
         "metadata": {
-          "source": "https://www.youtube.com/watch?v=9MT-BNuUCpM",
+          "source": "https://www.youtube.com/watch?v=bdVxbD41lV4",
           "timecode": 0,
-          "author":"Bryan Ollendyke",
+          "author":"Just A Cheese Dog",
           "created": 1697033522,
           "updated": 1697034021
         }
