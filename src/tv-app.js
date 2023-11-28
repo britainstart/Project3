@@ -60,6 +60,14 @@ export class TvApp extends LitElement {
         line-height: 1.5;
         font-size: 1em;
       }
+      .title-container{
+        position: relative;
+        align-self: center;
+        margin: 20px;
+      }
+      p{
+        font-size: 12px;
+      }
       h5 {
         font-weight: 400;
       }
@@ -85,7 +93,7 @@ export class TvApp extends LitElement {
               id="${item.id}"
               title="${item.title}"
               presenter="${item.metadata.author}"
-              description="${item.metadata.author}"
+              description="${item.description}"
               video="${item.metadata.source}"
               @click="${this.itemClick}"
             >
