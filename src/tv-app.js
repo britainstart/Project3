@@ -3,6 +3,7 @@ import { LitElement, html, css } from 'lit';
 import '@shoelace-style/shoelace/dist/components/dialog/dialog.js';
 import '@shoelace-style/shoelace/dist/components/button/button.js';
 import "./tv-channel.js";
+import "@lrnwebcomponents/video-player/video-player.js";
 
 export class TvApp extends LitElement {
   // defaults
