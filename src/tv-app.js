@@ -158,6 +158,15 @@ createSource() {
     this.changeVideo(); // Call the changeVideo method
     const dialog = this.shadowRoot.querySelector('.dialog');
     dialog.show();
+
+
+    this.dispatchEvent (
+      new CustomEvent('active-item-changed', {
+        bubbles: true,
+        composed: true,
+        detail: { activeItem: this.activeItem },
+      })
+    );
   }
 
   // LitElement life cycle for when any property changes
