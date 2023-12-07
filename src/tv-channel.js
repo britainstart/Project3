@@ -8,6 +8,7 @@ export class TvChannel extends LitElement {
     this.title = '';
     this.presenter = '';
     this.description = '';
+    this.timecode = '';
   }
   // convention I enjoy using to define the tag's name
   static get tag() {
@@ -20,6 +21,7 @@ export class TvChannel extends LitElement {
       description: { type: String},
       presenter: { type: String },
       video: { type: String },
+      timecode: {type: Number},
     };
   }
   // LitElement convention for applying styles JUST to our element
@@ -59,6 +61,7 @@ export class TvChannel extends LitElement {
   render() {
     return html`
       <div class="wrapper">
+        <h6>${this.timecode}</h6>
         <h3>${this.title}</h3>
         <h4>${this.presenter}</h4>
         <slot></slot>

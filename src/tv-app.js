@@ -2,8 +2,9 @@
 import { LitElement, html, css } from 'lit';
 import '@shoelace-style/shoelace/dist/components/dialog/dialog.js';
 import '@shoelace-style/shoelace/dist/components/button/button.js';
-import "./tv-channel.js";
 import "@lrnwebcomponents/video-player/video-player.js";
+import "./tv-channel.js";
+
 
 export class TvApp extends LitElement {
   // defaults
@@ -60,25 +61,45 @@ export class TvApp extends LitElement {
         animation-duration: 1s;
         line-height: 1.5;
         font-size: 1em;
+        // height: 100%
+        // font-size: 1 em;
       }
-      .title-container{
-        position: relative;
-        align-self: center;
-        margin: 20px;
+      .timecode-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        margin: 10px;
+        padding: 5px;
+        color: white;
+        background-color: #384194;
+        border-radius: 5px;
+        z-index: 1;
       }
+      //.title-container{
+      //  position: relative;
+      //  align-self: center;
+      //  margin: 20px;
+      //}
       p{
         font-size: 12px;
       }
-      h5 {
-        font-weight: 400;
+      video-player{
+        width: 750px;
+        height: auto;
+        max-width: 100px;
+        border: 1px solid #cccccc;
+        border-radius: 8px;
       }
-      .discord {
-        display: inline-flex;
-      }
-      .middle-page {
-        display: inline-flex;
-      }
-      .
+      //h5 {
+      //  font-weight: 400;
+      //}
+      //.discord {
+      //  display: inline-flex;
+      //}
+      //.middle-page {
+      //  display: inline-flex;
+      //}
+      //.
       `,
     ];
   }
@@ -92,6 +113,7 @@ export class TvApp extends LitElement {
           (item) => html`
             <tv-channel 
               id="${item.id}"
+              timecode="${item.metadata.timecode}"
               title="${item.title}"
               presenter="${item.metadata.author}"
               description="${item.description}"
@@ -103,7 +125,106 @@ export class TvApp extends LitElement {
         )
       }
       </div>
-      <div class="middle-page">
+      <div>
+        <h1 class="title-container">
+      ${this.activeItem.title}
+
+    </h1>
+    <div style="display: inline-flex">
+        <!-- video -->
+        <iframe id="video-player" style="margin: 30px;"
+        width="750"
+        height="400"
+        src="https://www.youtube.com/embed/9MT-BNuUCpM"
+        frameborder="0"
+        allowfullscreen
+        ></iframe>
+        <video-player id="video-player" source="https://www.hide-youtube-link.com/embed/9MT-BNuUCpM" accent-color="blue" dark track="https://haxtheweb.org/files/HAXshort.vtt"
+        >
+    </video-player>
+
+
+      <div>
+        <iframe style=""
+        src="https://discord.com/widget?id=YOUR_DISCORD_SERVER_ID&theme=dark"
+        width="400"
+        height="500"
+        allowtransparency="true"
+        frameborder="0"
+        sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
+        ></iframe>
+    </div>
+    </div>
+
+      <tv-channel style="height= " title=${this.activeItem.title} presenter="${this.activeItem.author}">
+      <p id ="description">${this.activeItem.description} </p>
+    </tv-channel>
+
+    </div>
+    <sl-dialog label="${this.activeItem.title}" class="dialog">
+      ${this.activeItem.description}
+      <sl-button slot="footer" variant="primary" @click="${this.watchButtonClick}">WATCH</sl-button>
+    </sl-dialog>
+
+    `;
+  }
+
+  watchButtonClick() {
+    this.changeVideo();
+    const dialog = this.shadowRoot.querySelector('dialog');
+    dialog.hidden();
+  }
+
+  changeVideo() {
+    const videoPlayer = this.shadowRoot.querySelector('video-player');
+    videoPlayer.source = this.createSource();
+    this.shadowRoot.querySelector('video-player').shadowRoot.querySelector('a11y-media-player').play()
+  }
+
+  extractVideoID(link) {
+    try {
+      const url = new URL(link);
+      const searchParams = new URLSearchParams(url.search);
+      return searchParams.get("v");    
+    } catch (error) {
+      console.error("Invalid URL:", link);
+      return null;
+    }
+  }
+  createSource() {
+    return "https://www.youtube.com/embed/" + this.extractVideoID(this.activeItem.video);
+  }
+
+  closeDialog(e) {
+    const dialog = this.shadowRoot.querySelector('.dialog');
+    dialog.hide();
+  }
+
+  itemClick(e) {
+    //console.log(e.target);
+    this.activeItem = {
+      title: e.target.title,
+      id: e.target.id,
+      description: e.target.description,
+      video: e.target.video, // Set the source on the active Item
+    };
+
+    this.changeVideo(); // Call the changeVideo method
+    const dialog = this.shadowRoot.querySelector('.dialog');
+    dialog.show();
+
+    this.dispatchEvent (
+      new CustomEvent('active-item-changed', {
+        bubbles: true,
+        composed: true,
+        detail: { activeItem: this.activeItem },
+      })
+    );
+  }
+  
+  
+  
+  /* <div class="middle-page">
         ${this.activeItem.name}
         ${this.activeItem.description}
         <!-- video -->
@@ -123,52 +244,12 @@ export class TvApp extends LitElement {
       </sl-dialog>
     `;
   }
-changeVideo() {
-  // Update the iframe source URL when an item is clicked
-  const iframe = this.shadowRoot.querySelector('iframe');
-  iframe.src = this.createSource();
-}
-
-extractVideoID(link) {
-  try {
-    const url = new URL(link);
-    const searchParams = new URLSearchParams(url.search);
-    return searchParams.get("v");    
-  } catch (error) {
-    console.error("Invalid URL:", link);
-    return null;
-  }
-}
-createSource() {
-  return "https://www.youtube.com/embed/" + this.extractVideoID(this.activeItem.video);
-}
-
-  closeDialog(e) {
-    const dialog = this.shadowRoot.querySelector('.dialog');
-    dialog.hide();
-  }
-
-  itemClick(e) {
-    console.log(e.target);
-    this.activeItem = {
-      title: e.target.title,
-      id: e.target.id,
-      description: e.target.description,
-      video: e.target.video, // Set the source on the active Item
-    };
-    this.changeVideo(); // Call the changeVideo method
-    const dialog = this.shadowRoot.querySelector('.dialog');
-    dialog.show();
+*/
 
 
-    this.dispatchEvent (
-      new CustomEvent('active-item-changed', {
-        bubbles: true,
-        composed: true,
-        detail: { activeItem: this.activeItem },
-      })
-    );
-  }
+
+
+
 
   // LitElement life cycle for when any property changes
   updated(changedProperties) {
