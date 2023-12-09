@@ -7,8 +7,8 @@ export class TvChannel extends LitElement {
     super();
     this.title = '';
     this.presenter = '';
-    this.description = '';
-    this.timecode = '';
+    /*this.description = '';
+    this.timecode = ''; */
   }
   // convention I enjoy using to define the tag's name
   static get tag() {
@@ -52,8 +52,16 @@ export class TvChannel extends LitElement {
         background-color: #ffffff;
         width: 900px;
       }
-      p {
-        font-size: 12px;
+      .time {
+        display: inline-block;
+        vertical-align: top;
+        padding: 16px;
+        background-color: lightblue;
+        border-radius: 8px;
+        height: 6px;
+      }
+      .titles {
+        display: inline-block;
       }
     `;
   }
@@ -61,9 +69,13 @@ export class TvChannel extends LitElement {
   render() {
     return html`
       <div class="wrapper">
-        <h6>${this.timecode}</h6>
-        <h3>${this.title}</h3>
-        <h4>${this.presenter}</h4>
+        <div class="time">
+          ${this.timecode} min
+  </div>
+  <div class="titles">
+    <h3>${this.title}</h3>
+    <h4>${this.presenter}</h4>
+  </div>
         <slot></slot>
       </div>  
       `;
