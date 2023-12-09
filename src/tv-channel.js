@@ -7,8 +7,8 @@ export class TvChannel extends LitElement {
     super();
     this.title = '';
     this.presenter = '';
-    this.description = '';
-    this.timecode = ''; 
+    // this.description = '';
+    // this.timecode = ''; 
   }
   // convention I enjoy using to define the tag's name
   static get tag() {
@@ -43,14 +43,12 @@ export class TvChannel extends LitElement {
       }
       .wrapper {
         margin: .5rem;
-        padding: .5rem;
-        padding-left: 16px;
-        padding-right: 16px;
+        padding: 16px;
         border-radius: 6px;
         border-color: #4a4a4a;
         box-shadow: 0px 0px 0px 1px #dbdbdb;
         background-color: #ffffff;
-        width: 900px;
+        vertical-align: top;
       }
       .time {
         display: inline-block;
@@ -76,9 +74,9 @@ export class TvChannel extends LitElement {
     <h3>${this.title}</h3>
     <h4>${this.presenter}</h4>
   </div>
-        <slot></slot>
-      </div>  
-      `;
+  <slot></slot>
+ </div>  
+  `;
   }
 }
 // tell the browser about our tag and class it should run when it sees it

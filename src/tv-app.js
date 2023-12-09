@@ -60,14 +60,12 @@ export class TvApp extends LitElement {
         animation-duration: 1s;
         line-height: 1.5;
         font-size: 1em;
-        height: 100%
-        font-size: 1 em;
       }
       .wrapper {
         display: inline-block;
         padding: 20px;
         width: 650px;
-        vertical-align:top;
+        vertical-align: top;
       }
       .discord {
         display: inline-block;
@@ -75,7 +73,7 @@ export class TvApp extends LitElement {
         vertical-align: top;
         padding: 20px;
       } 
-      .timecode-container {
+      /* .timecode-container {
         position: absolute;
         top: 0;
         left: 0;
@@ -96,7 +94,7 @@ export class TvApp extends LitElement {
         max-width: 1000px; 
         border: 1px solid #cccccc; 
         border-radius: 8px; 
-      }
+      } */ 
       `,
     ];
   }
@@ -110,26 +108,20 @@ export class TvApp extends LitElement {
           (item) => html`
             <tv-channel 
               id="${item.id}"
-              timecode="${item.metadata.timecode}"
               title="${item.title}"
               presenter="${item.metadata.author}"
               description="${item.description}"
-              video="${item.metadata.source}"
               @click="${this.itemClick}"
+              video="${item.metadata.source}"
+              timecode="${item.metadata.timecode}"
             >
             </tv-channel>
           `
         )
       }
-      
       </div>
      
-     <h1 class="title-container">
-      ${this.activeItem.title}
-      
-    </h1>
-    <div style="display: inline-flex">
-
+    <div>
         <div class="wrapper">
         <video-player
         source="https://www.youtube.com/watch?v=bdVxbD41lV4"
@@ -138,24 +130,23 @@ export class TvApp extends LitElement {
      </video-player>
     </div>
         
-   <div class="discord">
-    <widgetbot 
-      server="954008116800938044" 
-      channel="1106691466274803723" 
-      width="100%" 
-      height="100%" 
-      style="overflow: hidden; background-color: rgb(54, 57, 62); border-radius: 7px; vertical-align: top; width: 100%; height: 100%;">
-        <iframe title="WidgetBot Discord chat embed" allow="clipboard-write; fullscreen" src="https://e.widgetbot.io/channels/954008116800938044/1106691466274803723?api=a45a80a7-e7cf-4a79-8414-49ca31324752" 
+    <div class="discord">
+          <widgetbot server="954008116800938044" 
+          channel="1106691466274803723" 
+          width="100%" 
+          height="100%" 
+          style="overflow: hidden; background-color: rgb(54, 57, 62); border-radius: 7px; vertical-align: top; width: 100%; height: 100%;">
+          <iframe title="WidgetBot Discord chat embed" allow="clipboard-write; fullscreen" src="https://e.widgetbot.io/channels/954008116800938044/1106691466274803723?api=a45a80a7-e7cf-4a79-8414-49ca31324752" 
             style="border: none; width: 100%; height: 100%;">
-        </iframe>
-    </widgetbot>
-    <script src="https://cdn.jsdelivr.net/npm/@widgetbot/html-embed"></script>
+          </iframe>
+          </widgetbot>
+            <script src="https://cdn.jsdelivr.net/npm/@widgetbot/html-embed"></script>
+          </div>
     </div>
    
-    <tv-channel title=${this.activeItem.title} presenter="${this.activeItem.author}">
-    <p id= "description">${this.activeItem.description}
-    </p>
-  </tv-channel></sl-button>
+    <tv-channel title="${this.activeItem.title}" style="display: block;">
+        <p>${this.activeItem.description}</p>
+      </tv-channel>
 
       <!-- dialog -->
       <sl-dialog label="${this.activeItem.title}" class="dialog">
@@ -164,7 +155,6 @@ export class TvApp extends LitElement {
       </sl-dialog>
     `;
   }
-
 
   changeChannel() {
     const vid = this.shadowRoot.querySelector('video-player');
@@ -199,12 +189,29 @@ export class TvApp extends LitElement {
       video: e.target.video, 
     };
 
-    this.changeVideo();
+    const dialog = this.shadowRoot.querySelector(.'dialog');
+    dialog.show();
+  }
+
+  // this.changeVideo();
+  //const dialog = this.shadowRoot.querySelector('.dialog');
+    //dialog.show();
+  // }
+
+  itemClick(e) {
+    console.log(e.target);
+    this.activeItem = {
+      title: e.target.title,
+      id: e.target.id,
+      description: e.target.description,
+      video: e.target.video,
+    }; 
+    //this.changeChannel();
     const dialog = this.shadowRoot.querySelector('.dialog');
     dialog.show();
   }
 
-  buttonClick(e){
+  buttonClick(e) {
     this.changeChannel();
     const dialog = this.shadowRoot.querySelector('.dialog');
     dialog.hide();
@@ -226,7 +233,6 @@ export class TvApp extends LitElement {
     await fetch(source).then((resp) => resp.ok ? resp.json() : []).then((responseData) => {
       if (responseData.status === 200 && responseData.data.items && responseData.data.items.length > 0) {
         this.listings = [...responseData.data.items];
-        console.log(this.liftings);
       }
     });
   }
