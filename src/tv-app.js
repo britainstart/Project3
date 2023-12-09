@@ -19,7 +19,6 @@ export class TvApp extends LitElement {
       description: null,
     };
   }
-  // convention I enjoy using to define the tag's name
   static get tag() {
     return 'tv-app';
   }
@@ -61,8 +60,8 @@ export class TvApp extends LitElement {
         animation-duration: 1s;
         line-height: 1.5;
         font-size: 1em;
-        // height: 100%
-        // font-size: 1 em;
+        height: 100%
+        font-size: 1 em;
       }
       .wrapper {
         display: inline-block;
@@ -75,8 +74,7 @@ export class TvApp extends LitElement {
         height: 440px;
         vertical-align: top;
         padding: 20px;
-      }
-
+      } 
       .timecode-container {
         position: absolute;
         top: 0;
@@ -88,11 +86,16 @@ export class TvApp extends LitElement {
         border-radius: 5px;
         z-index: 1;
       }
-      
       .title-container{
        position: relative;
        align-self: center;
         margin: 20px;
+      }
+      .video-player {
+        height: auto;
+        max-width: 1000px; 
+        border: 1px solid #cccccc; 
+        border-radius: 8px; 
       }
       `,
     ];
@@ -118,8 +121,15 @@ export class TvApp extends LitElement {
           `
         )
       }
+      
       </div>
-     <div>
+     
+     <h1 class="title-container">
+      ${this.activeItem.title}
+      
+    </h1>
+    <div style="display: inline-flex">
+
         <div class="wrapper">
         <video-player
         source="https://www.youtube.com/watch?v=bdVxbD41lV4"
@@ -128,30 +138,30 @@ export class TvApp extends LitElement {
      </video-player>
     </div>
         
-    <div class="discord">
-    <widgetbot server="954008116800938044" 
-          channel="1106691466274803723" 
-          width="100%" 
-          height="100%" 
-          style="overflow: hidden; background-color: rgb(54, 57, 62); border-radius: 7px; vertical-align: top; width: 100%; height: 100%;">
-          <iframe title="WidgetBot Discord chat embed" allow="clipboard-write; fullscreen" src="https://e.widgetbot.io/channels/954008116800938044/1106691466274803723?api=a45a80a7-e7cf-4a79-8414-49ca31324752" 
+   <div class="discord">
+    <widgetbot 
+      server="954008116800938044" 
+      channel="1106691466274803723" 
+      width="100%" 
+      height="100%" 
+      style="overflow: hidden; background-color: rgb(54, 57, 62); border-radius: 7px; vertical-align: top; width: 100%; height: 100%;">
+        <iframe title="WidgetBot Discord chat embed" allow="clipboard-write; fullscreen" src="https://e.widgetbot.io/channels/954008116800938044/1106691466274803723?api=a45a80a7-e7cf-4a79-8414-49ca31324752" 
             style="border: none; width: 100%; height: 100%;">
-          </iframe>
-          </widgetbot>
-            <script src="https://cdn.jsdelivr.net/npm/@widgetbot/html-embed"></script>
-          </div>
+        </iframe>
+    </widgetbot>
+    <script src="https://cdn.jsdelivr.net/npm/@widgetbot/html-embed"></script>
     </div>
+   
+    <tv-channel title=${this.activeItem.title} presenter="${this.activeItem.author}">
+    <p id= "description">${this.activeItem.description}
+    </p>
+  </tv-channel></sl-button>
 
-
-      <tv-channel title="${((this.activeItem.title === null ? undefined : this.activeItem.title))}" style="display: block;">
-        <p>${this.activeItem.description}</p>
-    </tv-channel>
-    </div>
-
-    <sl-dialog label="${this.activeItem.title}" class="dialog">
-      ${this.activeItem.description}
-      <sl-button slot="footer" variant="primary" @click="${this.watchButtonClick}">WATCH</sl-button>
-    </sl-dialog>
+      <!-- dialog -->
+      <sl-dialog label="${this.activeItem.title}" class="dialog">
+          ${this.activeItem.description}
+        <sl-button slot="footer" variant="primary" @click="${this.buttonClick}">Watch</sl-button>
+      </sl-dialog>
     `;
   }
 

@@ -7,8 +7,8 @@ export class TvChannel extends LitElement {
     super();
     this.title = '';
     this.presenter = '';
-    /*this.description = '';
-    this.timecode = ''; */
+    this.description = '';
+    this.timecode = ''; 
   }
   // convention I enjoy using to define the tag's name
   static get tag() {
