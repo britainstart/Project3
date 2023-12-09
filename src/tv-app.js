@@ -2,12 +2,10 @@
 import { LitElement, html, css } from 'lit';
 import '@shoelace-style/shoelace/dist/components/dialog/dialog.js';
 import '@shoelace-style/shoelace/dist/components/button/button.js';
-import "@lrnwebcomponents/video-player/video-player.js";
 import "./tv-channel.js";
-
+import "@lrnwebcomponents/video-player/video-player.js";
 
 export class TvApp extends LitElement {
-  // defaults
   constructor() {
     super();
     this.name = '';
@@ -22,7 +20,6 @@ export class TvApp extends LitElement {
   static get tag() {
     return 'tv-app';
   }
-  // LitElement convention so we update render() when values change
   static get properties() {
     return {
       name: { type: String },
@@ -31,7 +28,6 @@ export class TvApp extends LitElement {
       activeItem: { type: Object }
     };
   }
-  // LitElement convention for applying styles JUST to our element
   static get styles() {
     return [
       css`
@@ -40,7 +36,7 @@ export class TvApp extends LitElement {
         margin: 16px;
         padding: 16px;
       }
-      .listing-container{
+      .listing-container {
         justify-self: center;
         max-width: 1344px;
         justify-items: left;
@@ -72,33 +68,10 @@ export class TvApp extends LitElement {
         height: 440px;
         vertical-align: top;
         padding: 20px;
-      } 
-      /* .timecode-container {
-        position: absolute;
-        top: 0;
-        left: 0;
-        margin: 10px;
-        padding: 5px;
-        color: white;
-        background-color: #384194;
-        border-radius: 5px;
-        z-index: 1;
       }
-      .title-container{
-       position: relative;
-       align-self: center;
-        margin: 20px;
-      }
-      .video-player {
-        height: auto;
-        max-width: 1000px; 
-        border: 1px solid #cccccc; 
-        border-radius: 8px; 
-      } */ 
-      `,
+      `
     ];
   }
-  // LitElement rendering template of your element
   render() {
     return html`
       <h2>${this.name}</h2>
@@ -120,17 +93,17 @@ export class TvApp extends LitElement {
         )
       }
       </div>
-     
-    <div>
-        <div class="wrapper">
-        <video-player
-        source="https://www.youtube.com/watch?v=bdVxbD41lV4"
-        accent-color="red"
+
+      <div>
+      <div class="wrapper">
+      <video-player 
+        source="https://www.youtube.com/watch?v=bdVxbD41lV4" 
+        accent-color="red" 
         dark track="https://haxtheweb.org/files/HAXshort.vtt">
      </video-player>
     </div>
         
-    <div class="discord">
+        <div class="discord">
           <widgetbot server="954008116800938044" 
           channel="1106691466274803723" 
           width="100%" 
@@ -143,8 +116,8 @@ export class TvApp extends LitElement {
             <script src="https://cdn.jsdelivr.net/npm/@widgetbot/html-embed"></script>
           </div>
     </div>
-   
-    <tv-channel title="${this.activeItem.title}" style="display: block;">
+    
+      <tv-channel title="${this.activeItem.title}" style="display: block;">
         <p>${this.activeItem.description}</p>
       </tv-channel>
 
@@ -161,42 +134,24 @@ export class TvApp extends LitElement {
     vid.source = this.createSource();
   }
 
-  extractVideoID(link) {
+  extractVideoId(link) {
     try {
       const url = new URL(link);
       const searchParams = new URLSearchParams(url.search);
-      return searchParams.get("v");    
+      return searchParams.get("v");
     } catch (error) {
       console.error("Invalid URL:", link);
       return null;
     }
   }
   createSource() {
-    return "https://www.youtube.com/embed/" + this.extractVideoID(this.activeItem.video);
+    return "https://www.youtube.com/embed/" + this.extractVideoId(this.activeItem.video);
   }
 
   closeDialog(e) {
     const dialog = this.shadowRoot.querySelector('.dialog');
     dialog.hide();
   }
-
-  itemClick(e) {
-    console.log(e.target);
-    this.activeItem = {
-      title: e.target.title,
-      id: e.target.id,
-      description: e.target.description,
-      video: e.target.video, 
-    };
-
-    const dialog = this.shadowRoot.querySelector(.'dialog');
-    dialog.show();
-  }
-
-  // this.changeVideo();
-  //const dialog = this.shadowRoot.querySelector('.dialog');
-    //dialog.show();
-  // }
 
   itemClick(e) {
     console.log(e.target);
@@ -217,7 +172,8 @@ export class TvApp extends LitElement {
     dialog.hide();
     this.shadowRoot.querySelector('video-player').shadowRoot.querySelector('a11y-media-player').play();
   }
-  
+
+  // LitElement life cycle for when any property changes
   updated(changedProperties) {
     if (super.updated) {
       super.updated(changedProperties);
