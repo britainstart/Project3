@@ -44,31 +44,8 @@ export class TvChannel extends LitElement {
         overflow: hidden;
         text-overflow: ellipsis;
       } 
-      .listing-container {
-        justify-self: center;
-        max-width: 1344px;
-        justify-items: left;
-        display: inline-flex;
-        flex-direction: row;
-        flex-grow: 1;
-        flex-wrap: nowrap;
-        overflow-x: auto;
-        overflow-y: auto;
-        text-rendering: optimizeLegibility;
-        width: 100%;
-        position: relative;
-        animation-delay: 1s;
-        animation-duration: 1s;
-        line-height: 1.5;
-        font-size: 1em;
-      } 
-      .title-container{
-        position: relative;
-        align-self: center;
-        margin: 10px;
-      } 
       .wrapper {
-        //display: inline-flexblock;
+        display: inline-flexblock;
         margin: .5rem;
         padding: .5rem;
         padding-left: 16px;
@@ -77,13 +54,15 @@ export class TvChannel extends LitElement {
         border-color: #4a4a4a;
         box-shadow: 0px 0px 0px 1px #dbdbdb;
         background-color: #ffffff;
-        //vertical-align: top;
+        vertical-align: top;
       } 
+      p {
+        font-size: 12px;
+      }
       .time {
         width: 50px;
         text-align: center;
         padding: 12px;
-        background-color: grey;
         border-radius: 6px;
         height: 8px;
       }
@@ -97,27 +76,23 @@ export class TvChannel extends LitElement {
         border-color: #1620d7;
         border-radius: 8px;
       }
-      .titles {
+     /* .titles {
         display: inline-block;
-      }
+        vertical-align: --tooltip-offset;
+      } */ 
     `;
   }
   // LitElement rendering template of your element
   render() {
     return html`
       <div class="wrapper">
-        <div class="startTime">
+      <div class="startTime">
           ${this.startTime}</div>
-        <div class="time">
-          ${this.timecode} min
-          <div class="titles">
-    <h3>${this.title}</h3>
-    <h4>${this.presenter}</h4>
-          </div>
-  </div>
-  </div>
-  <slot></slot>
- </div>  
+  <h6>${this.timecode} min</h6>
+      <h3>${this.title}</h3>
+        <h4>${this.presenter}</h4>
+        <slot></slot>
+      </div>
   `;
   }
 }

@@ -41,7 +41,7 @@ export class TvApp extends LitElement {
         justify-self: center;
         max-width: 1344px;
         justify-items: left;
-        display: flex;
+        display: inline-flex;
         flex-direction: row;
         flex-grow: 1;
         flex-wrap: nowrap;
@@ -57,6 +57,11 @@ export class TvApp extends LitElement {
         animation-duration: 1s;
         line-height: 1.5;
         font-size: 1em;
+      }
+      .title-container{
+        position: relative;
+        align-self: center;
+        margin: 10px;
       }
       .wrapper {
         display: inline-block;
