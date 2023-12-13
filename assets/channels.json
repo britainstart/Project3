@@ -20,6 +20,7 @@
         "metadata": {
           "source": "https://www.youtube.com/watch?v=bdVxbD41lV4",
           "timecode": 1,
+          "startTime": "12:00PM",
           "author":"Just A Cheese Dog",
           "created": 1697033522,
           "updated": 1697034021
@@ -37,6 +38,7 @@
         "metadata": {
           "source": "https://www.youtube.com/watch?v=cjJCCeIUgi4",
           "timecode": 12,
+          "startTime": "12:001PM",
           "author":"Crusoe The Dachshund",
           "created": 1697033522,
           "updated": 1697034021
@@ -54,6 +56,7 @@
         "metadata": {
           "source": "https://www.youtube.com/watch?v=FQLrRK6Voog",
           "timecode": 13,
+          "startTime": "12:13PM",
           "author":"Crusoe The Dachshund",
           "created": 1697033522,
           "updated": 1697034021
@@ -71,6 +74,7 @@
         "metadata": {
           "source": "https://www.youtube.com/watch?v=R74eJFUUPnk",
           "timecode": 15,
+          "startTime": "12:26PM",
           "author":"Crusoe The Dachshund",
           "created": 1697033522,
           "updated": 1697034021
@@ -88,6 +92,7 @@
         "metadata": {
           "source": "https://www.youtube.com/watch?v=iFs1xb0_wpY",
           "timecode": 3,
+          "startTime": "12:41PM",
           "author":"Crusoe The Dachshund",
           "created": 1697033522,
           "updated": 1697034021
@@ -105,6 +110,7 @@
         "metadata": {
           "source": "https://www.youtube.com/watch?v=oIp43Y0R-LI",
           "timecode": 8,
+          "startTime": "12:44PM",
           "author":"Crusoe The Dachshund",
           "created": 1697033522,
           "updated": 1697034021
@@ -122,6 +128,7 @@
         "metadata": {
           "source": "https://www.youtube.com/watch?v=lMSc-JdcP7o",
           "timecode": 10,
+          "startTime": "12:52PM",
           "author":"Crusoe The Dachshund",
           "created": 1697033522,
           "updated": 1697034021

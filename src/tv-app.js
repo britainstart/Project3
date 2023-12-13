@@ -1,4 +1,3 @@
-// import stuff
 import { LitElement, html, css } from 'lit';
 import '@shoelace-style/shoelace/dist/components/dialog/dialog.js';
 import '@shoelace-style/shoelace/dist/components/button/button.js';
@@ -12,9 +11,11 @@ export class TvApp extends LitElement {
     this.source = new URL('../assets/channels.json', import.meta.url).href;
     this.listings = [];
     this.activeItem = {
-      title: null,
-      id: null,
-      description: null,
+      title: '',
+      id: '',
+      description: '',
+      startTime: '',
+      timecode: ''
     };
   }
   static get tag() {
@@ -87,6 +88,7 @@ export class TvApp extends LitElement {
               @click="${this.itemClick}"
               video="${item.metadata.source}"
               timecode="${item.metadata.timecode}"
+              startTime="${item.metadata.startTime}"
             >
             </tv-channel>
           `
@@ -117,11 +119,16 @@ export class TvApp extends LitElement {
           </div>
     </div>
     
-      <tv-channel title="${this.activeItem.title}" style="display: block;">
-        <p>${this.activeItem.description}</p>
+      <tv-channel title="${this.activeItem.title}" 
+      style="display: block;"
+      presenter="${this.activeItem.author}"
+      startTime="${this.activeItem.startTime}">
+        <p id="description">${this.activeItem.description}</p>
+        <div class ="descriptionWrapper">
+    </div>
       </tv-channel>
 
-      <!-- dialog -->
+
       <sl-dialog label="${this.activeItem.title}" class="dialog">
           ${this.activeItem.description}
         <sl-button slot="footer" variant="primary" @click="${this.buttonClick}">Watch</sl-button>

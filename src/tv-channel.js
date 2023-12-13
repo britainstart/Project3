@@ -7,8 +7,10 @@ export class TvChannel extends LitElement {
     super();
     this.title = '';
     this.presenter = '';
-    // this.description = '';
-    // this.timecode = ''; 
+    this.description = '';
+    this.timecode = ''; 
+    this.startTime = '';
+    this.video = '';
   }
   // convention I enjoy using to define the tag's name
   static get tag() {
@@ -22,6 +24,7 @@ export class TvChannel extends LitElement {
       presenter: { type: String },
       video: { type: String },
       timecode: {type: Number},
+      startTime: {type: String},
     };
   }
   // LitElement convention for applying styles JUST to our element
@@ -42,21 +45,35 @@ export class TvChannel extends LitElement {
         text-overflow: ellipsis;
       }
       .wrapper {
+        // display: inline-flex;
         margin: .5rem;
-        padding: 16px;
+        padding: .5rem;
+        padding-left: 16px;
+        padding-right: 16px;
         border-radius: 6px;
         border-color: #4a4a4a;
         box-shadow: 0px 0px 0px 1px #dbdbdb;
         background-color: #ffffff;
-        vertical-align: top;
-      }
+        //vertical-align: top;
+        
+      } 
       .time {
-        display: inline-block;
+        width: 50px;
+        text-align: center;
+        padding: 12px;
+        background-color: grey;
+        border-radius: 6px;
+        height: 8px;
+      }
+      .startTime{
+        display: inline-flex;
         vertical-align: top;
-        padding: 16px;
+        text-align: center;
+        padding: 12px;
+        margin: 0;
         background-color: lightblue;
+        border-color: #1620d7;
         border-radius: 8px;
-        height: 6px;
       }
       .titles {
         display: inline-block;
@@ -67,12 +84,15 @@ export class TvChannel extends LitElement {
   render() {
     return html`
       <div class="wrapper">
+        <div class="startTime">
+          ${this.startTime}</div>
         <div class="time">
           ${this.timecode} min
-  </div>
-  <div class="titles">
+          <div class="titles">
     <h3>${this.title}</h3>
     <h4>${this.presenter}</h4>
+          </div>
+  </div>
   </div>
   <slot></slot>
  </div>  
