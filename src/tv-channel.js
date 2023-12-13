@@ -30,7 +30,7 @@ export class TvChannel extends LitElement {
   // LitElement convention for applying styles JUST to our element
   static get styles() {
     return css`
-      :host {
+     :host {
         text-rendering: optimizeLegibility;
         box-sizing: inherit;
         display: inline-block;
@@ -43,9 +43,32 @@ export class TvChannel extends LitElement {
         transition: all 0.25s ease-in-out;
         overflow: hidden;
         text-overflow: ellipsis;
-      }
+      } 
+      .listing-container {
+        justify-self: center;
+        max-width: 1344px;
+        justify-items: left;
+        display: inline-flex;
+        flex-direction: row;
+        flex-grow: 1;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        overflow-y: auto;
+        text-rendering: optimizeLegibility;
+        width: 100%;
+        position: relative;
+        animation-delay: 1s;
+        animation-duration: 1s;
+        line-height: 1.5;
+        font-size: 1em;
+      } 
+      .title-container{
+        position: relative;
+        align-self: center;
+        margin: 10px;
+      } 
       .wrapper {
-        // display: inline-flex;
+        //display: inline-flexblock;
         margin: .5rem;
         padding: .5rem;
         padding-left: 16px;
@@ -55,7 +78,6 @@ export class TvChannel extends LitElement {
         box-shadow: 0px 0px 0px 1px #dbdbdb;
         background-color: #ffffff;
         //vertical-align: top;
-        
       } 
       .time {
         width: 50px;
